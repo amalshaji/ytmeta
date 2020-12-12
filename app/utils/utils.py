@@ -19,10 +19,11 @@ def metadata(id: str, scope: str) -> dict:
         return player_resp
 
     # get all the formats
-    f1 = player_resp.get("streamingData").get("adaptiveFormats", [])
-    f2 = player_resp.get("streamingData").get("formats", [])
+    if player_resp.get("streamingData") is not None:
+        f1 = player_resp.get("streamingData").get("adaptiveFormats", [])
+        f2 = player_resp.get("streamingData").get("formats", [])
 
-    response["formats"] = f1 + f2
+        response["formats"] = f1 + f2
 
     # get video details
     details: dict = player_resp.get("videoDetails")
@@ -31,5 +32,6 @@ def metadata(id: str, scope: str) -> dict:
         response["length"] = details.get("lengthSeconds")
         response["thumbnails"] = details.get("thumbnail")
         response["channel"] = details.get("author")
+        response["views"] = details.get("viewCount")
 
     return response

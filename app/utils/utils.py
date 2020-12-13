@@ -7,16 +7,13 @@ ENDPOINT = (
 )
 
 
-def metadata(id: str, scope: str) -> dict:
+def metadata(id: str) -> dict:
     response: dict = {}
     res = requests.get(ENDPOINT(id))
     decoded_res = res.content.decode("utf-8")
     parsed_res = urlparse.parse_qs(decoded_res)
     player_resp = parsed_res.get("player_response")
     player_resp: dict = json.loads(player_resp[0])
-
-    if scope == "all":
-        return player_resp
 
     # get all the formats
     if player_resp.get("streamingData") is not None:

@@ -19,6 +19,6 @@ def read_home():
 
 
 @app.get("/api/{id}")
-def get_metadata(id: str, scope: Optional[str] = None):
-    meta = metadata(id, scope)
+def get_metadata(id: str):
+    meta = metadata(id)
     return meta

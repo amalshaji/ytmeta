@@ -6,7 +6,9 @@ It returns data including `title`, `views`, `links to thumbnail` and `various fo
 
 ### Usage
 
-`curl https://ytmeta.tk/api/{video_id}`
+`curl https://ytmeta.tk/api/v1/{video_id}`
+
+> example: https://ytmeta.tk/api/v1/BalvzyKg_4k
 
 This should return all the necessary data required to create an app.
 

@@ -1,5 +1,4 @@
 import json
-import requests
 import urllib.parse as urlparse
 
 ENDPOINT = (
@@ -7,10 +6,9 @@ ENDPOINT = (
 )
 
 
-def metadata(id: str) -> dict:
+def metadata(content: bytes) -> dict:
     response: dict = {}
-    res = requests.get(ENDPOINT(id))
-    decoded_res = res.content.decode("utf-8")
+    decoded_res = content.decode("utf-8")
     parsed_res = urlparse.parse_qs(decoded_res)
     player_resp = parsed_res.get("player_response")
     player_resp: dict = json.loads(player_resp[0])

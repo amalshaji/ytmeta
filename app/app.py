@@ -1,24 +1,18 @@
-from typing import Optional
-from app.utils.utils import metadata
-
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-
-app = FastAPI()
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+import requests
+from fastapi import APIRouter
+from .utils import metadata, ENDPOINT
 
 
-@app.get("/")
+api_v1 = APIRouter(prefix="/api/v1")
+
+
+@api_v1.get("/")
 def read_home():
     return "Hello🖐️ there"
 
 
-@app.get("/api/{id}")
-def get_metadata(id: str):
-    meta = metadata(id)
+@api_v1.get("/{id}")
+async def get_video_metadata(id: str):
+    result = requests.get(ENDPOINT(id)).content
+    meta = metadata(result)
     return meta
